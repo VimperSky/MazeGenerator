@@ -8,17 +8,17 @@ namespace MazeGenerator
         {
             Console.BufferHeight = 9999;
 
-            var mazeGenerator = new MazeGen(10, 10);
+            var mazeGenerator = new MazeGen(25, 15);
 
             //Should get two-dimensional array or matrix with 1(not wall) and 0(wall) values
             //Spazzled maze generation algorithm
             var maze = mazeGenerator.GenerateMaze();
 
-            for (byte i = 0; i < maze.GetLength(0); i++)
+            for (byte i = 0; i < maze.GetLength(1); i++)
             {
-                for (byte j = 0; j < maze.GetLength(1); j++)
+                for (byte j = 0; j < maze.GetLength(0); j++)
                 {
-                    Console.Write(maze[i, j]);
+                    Console.Write(maze[j, i]);
                 }
                 Console.WriteLine();
             }
