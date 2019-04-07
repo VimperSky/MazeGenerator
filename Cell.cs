@@ -19,4 +19,14 @@
             Y = y;
         }
     }
+
+    public class Neighbour
+    {
+        public int Rank { get; set; } = 0; 
+        public Cell Cell { get; }
+        public Neighbour(Cell cell)
+        {
+            Cell = cell;
+        }
+    }
 }
