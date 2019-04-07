@@ -22,22 +22,21 @@ namespace MazeGenerator
 
         public byte[,] GenerateMaze()
         {
-
-            workers[0] = new MazeWorker { CurrentCell = new Cell(0, 0) };
-            workers[1] = new MazeWorker { CurrentCell = new Cell(width - 1, 0) };
-
-            workers[2] = new MazeWorker { CurrentCell = new Cell(width - 1, height - 1) };
-            workers[3] = new MazeWorker { CurrentCell = new Cell(0, height - 1) };
-
-
+            var startCells = new Cell[4]
+            {
+                new Cell(random.Next(0, width / 3), random.Next(0, height / 3)),
+                new Cell(random.Next(2 * width / 3 + 1, width), random.Next(0, height / 3)),
+                new Cell(random.Next(2 * width / 3 + 1, width), random.Next(2 * height / 3 + 1, height)),
+                new Cell(random.Next(0, width / 3), random.Next(2 * height / 3 + 1, height))
+            };
 
             byte[,] maze = new byte[width, height];
 
             //Initialization
             for (int i = 0; i < workers.Length; i++)
             {
-                maze[workers[i].CurrentCell.X, workers[i].CurrentCell.Y] = (byte)(i + 1);
-                workers[i].ExpandableCells.Add(workers[i].CurrentCell);
+                workers[i] = new MazeWorker();
+                workers[i].ExpandableCells.Add(startCells[i]);
             }
 
             while (finishedCount < 4)
@@ -45,11 +44,6 @@ namespace MazeGenerator
                 for (byte i = 0; i < workers.Length; i++)
                 {
                     var worker = workers[i];
-                    if (worker.ExpandableCells.Count == 0)
-                    {
-                        worker.IsFinished = true;
-                        ++finishedCount;
-                    }
 
                     if (worker.IsFinished)
                         continue;
@@ -133,6 +127,11 @@ namespace MazeGenerator
                     if (unvisitedNeighbours.Count == 0)
                     {
                         worker.ExpandableCells.Remove(worker.CurrentCell);
+                        if (worker.ExpandableCells.Count == 0)
+                        {
+                            worker.IsFinished = true;
+                            ++finishedCount;
+                        }
                         continue;
                     }
 
@@ -146,5 +145,6 @@ namespace MazeGenerator
             }
             return maze;
         }
+
     }
 }
