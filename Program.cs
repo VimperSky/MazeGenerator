@@ -8,9 +8,7 @@ namespace MazeGenerator
         {
             Console.BufferHeight = 9999;
 
-            var mazeGenerator = new MazeGen(25, 25);
-
-            var maze = mazeGenerator.GenerateMaze();
+            var maze = new MazeGen().GenerateMaze(10, 10, 3);
 
             for (byte i = 0; i < maze.GetLength(1); i++)
             {

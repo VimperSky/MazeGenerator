@@ -7,12 +7,6 @@
     {
         public int X { get; }
         public int Y { get; }
-
-        /// <summary>
-        /// Create a cell with x and y coords.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
         public Cell(int x, int y)
         {
             X = x;
@@ -20,13 +14,19 @@
         }
     }
 
-    public class Neighbour
+    /// <summary>
+    /// Represents a Neighbour with TargetCell and WallCell
+    /// </summary>
+    public struct Neighbour
     {
-        public int Rank { get; set; } = 0; 
-        public Cell Cell { get; }
-        public Neighbour(Cell cell)
+        public Cell TargetCell { get; set; }
+
+        public Cell WallCell { get; set; }
+
+        public Neighbour(Cell targetCell, Cell wallCell)
         {
-            Cell = cell;
+            TargetCell = targetCell;
+            WallCell = wallCell;
         }
     }
 }
