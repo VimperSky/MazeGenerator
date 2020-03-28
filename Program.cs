@@ -1,24 +1,16 @@
 ﻿using System;
+using System.IO;
+using Core.GameLogic.MazeGen.Primitives;
 
-namespace MazeGenerator
+namespace Core.GameLogic.MazeGen
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
-            Console.BufferHeight = 9999;
-
-            var maze = new MazeGen().GenerateMaze(10, 10, 3);
-
-            for (byte i = 0; i < maze.GetLength(1); i++)
-            {
-                for (byte j = 0; j < maze.GetLength(0); j++)
-                {
-                    Console.Write(maze[j, i] + " ");
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine();
+            var mazeGenParams = new MazeGenParams(20, 20, GeneratorType.Random, 30);
+            var mazeGen = new MazeGenerator(mazeGenParams);
+            var maze = mazeGen.GenerateMaze();
         }
     }
 }
